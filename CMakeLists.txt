@@ -47,7 +47,7 @@ target_compile_features(props INTERFACE cxx_std_17)
 
 if(BUILD_TESTING)
     enable_testing()
-    find_package(Boost 1.72.0 REQUIRED COMPONENTS locale log unit_test_framework) #math)
+    find_package(Boost 1.71.0 REQUIRED COMPONENTS locale log unit_test_framework) #math)
     file(GLOB_RECURSE TEST_SRCS LIST_DIRECTORIES false RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} tests/src/*.cpp)
     foreach(testSrc ${TEST_SRCS})
         get_filename_component(testName ${testSrc} NAME_WE)
