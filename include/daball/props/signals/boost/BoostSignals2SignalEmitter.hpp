@@ -48,7 +48,7 @@ namespace daball::props::signals::boost {
     class BoostSignals2SignalEmitter<Return_T(Args_T...)>:
             public BoostSignals2SignalEmitterBase<Return_T(Args_T...)> {
     public:
-        BoostSignals2SignalEmitter<Return_T, Args_T...>() {}
+        BoostSignals2SignalEmitter() {}
 
         virtual Return_T trigger(Args_T...args) {
             return *this->signal(args...);
@@ -59,7 +59,7 @@ namespace daball::props::signals::boost {
     class BoostSignals2SignalEmitter<void(Args_T...)>:
             public BoostSignals2SignalEmitterBase<void(Args_T...)> {
     public:
-        BoostSignals2SignalEmitter<void, Args_T...>() {}
+        BoostSignals2SignalEmitter() {}
 
         virtual void trigger(Args_T...args) {
             this->signal(args...);

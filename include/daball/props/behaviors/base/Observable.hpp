@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "daball/props/signals/base/SignalEmitter.hpp"
 #include "daball/props/signals/base/SlotHandler.hpp"
 
@@ -25,30 +26,28 @@ namespace daball::props::behaviors::base {
             this->onUpdateEmitter.trigger(args...);
         }
     public:
-        Observable<Subject_T, SignalEmitter_T, Connection_T, Functional_T, Args_T...>():
+        Observable():
                 subjectRef{nullptr},
                 onBeforeUpdateEmitter{SignalEmitter_T<void(Args_T...)>()},
                 onUpdateEmitter{SignalEmitter_T<void(Args_T...)>()}
         {
         }
 
-        Observable<Subject_T, SignalEmitter_T, Connection_T, Functional_T, Args_T...>(
-                Subject_T const& initialValue
-        ):
-                Observable<Subject_T, SignalEmitter_T, Connection_T, Functional_T, Args_T...>(),
-                subjectRef{::std::make_unique<::std::reference_wrapper<Subject_T>>(::std::ref<Subject_T>(initialValue))}
+        Observable(Subject_T const& initialValue):
+                subjectRef{::std::make_unique<::std::reference_wrapper<Subject_T>>(::std::ref<Subject_T>(initialValue))},
+                onBeforeUpdateEmitter{SignalEmitter_T<void(Args_T...)>()},
+                onUpdateEmitter{SignalEmitter_T<void(Args_T...)>()}
         {
         }
 
-        Observable<Subject_T, SignalEmitter_T, Connection_T, Functional_T, Args_T...>(
-                Subject_T &initialValue
-        ):
-                Observable<Subject_T, SignalEmitter_T, Connection_T, Functional_T, Args_T...>(),
-                subjectRef{::std::make_unique<::std::reference_wrapper<Subject_T>>(::std::ref<Subject_T>(initialValue))}
+        Observable(Subject_T &initialValue):
+                subjectRef{::std::make_unique<::std::reference_wrapper<Subject_T>>(::std::ref<Subject_T>(initialValue))},
+                onBeforeUpdateEmitter{SignalEmitter_T<void(Args_T...)>()},
+                onUpdateEmitter{SignalEmitter_T<void(Args_T...)>()}
         {
         }
 
-        ~Observable<Subject_T, SignalEmitter_T, Connection_T, Functional_T, Args_T...>() {
+        ~Observable() {
             this->cancelAll();
         }
 
