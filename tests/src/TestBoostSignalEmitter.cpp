@@ -4,7 +4,7 @@
 //Define our Module name (prints at testing)
 #include <boost/signals2.hpp>
 #include <daball/props/signals/boost/BoostSignals2SignalEmitter.hpp>
-#define BOOST_TEST_MODULE BoostSignalEmitter
+#define BOOST_TEST_MODULE TestBoostSignalEmitter
 //VERY IMPORTANT - include this last
 #include <boost/test/unit_test.hpp>
 

@@ -1,30 +1,30 @@
 #pragma once
 
 #include <memory>
-#include "../behaviors/base/Observable.hpp"
-#include "daball/props/behaviors/base/SubjectOwner.hpp"
+#include "../behaviors/base/SubjectOwner.hpp"
 
-using daball::props::behaviors::base::Observable;
-using daball::props::behaviors::base::SubjectEncapsulation;
+using daball::props::behaviors::base::SubjectOwner;
 
 namespace daball::props::base {
-    template<typename Prop_T, template<typename> typename SignalEmitter_T, typename Connection_T, template <typename> typename Functional_T>
-    class ObservableProperty:
-            public SubjectEncapsulation<Prop_T>,
-            public Observable<Prop_T, SignalEmitter_T, Connection_T, Functional_T, Prop_T &, Prop_T &>
+    template<typename Prop_T>
+    class Property:
+            public SubjectOwner<Prop_T>
     {
-    private:
-        std::unique_ptr<Prop_T> subject;
     public:
         /**
-         * Creates an ObservableProperty<Prop_T> with a nullptr reference.
-         * It will not trigger an observer update until after the observed property
-         * has first been set; the first set of the property will not trigger an
-         * an update signal. Only subsequent set calls will signal updates.
+         * Creates a Property<Prop_T> with a nullptr reference for its initial value.
          */
-        ObservableProperty():
-                SubjectEncapsulation<Prop_T>(),
-                Observable<Prop_T, SignalEmitter_T, Connection_T, Functional_T, Prop_T &>()
+        Property():
+                SubjectOwner<Prop_T>()
+        {
+        }
+
+        /**
+         * Creates a Property<Prop_T> using initialValue as the initial
+         * property value.
+         */
+        Property(const Prop_T &initialValue):
+                SubjectOwner<Prop_T>(initialValue)
         {
         }
 
@@ -32,19 +32,8 @@ namespace daball::props::base {
          * Creates an ObservableProperty<Prop_T> using initialValue as the initial
          * property value.
          */
-        ObservableProperty(const Prop_T &initialValue):
-                SubjectEncapsulation<Prop_T>(initialValue),
-                Observable<Prop_T, SignalEmitter_T, Connection_T, Functional_T, Prop_T &>(*this->get())
-        {
-        }
-
-        /**
-         * Creates an ObservableProperty<Prop_T> using initialValue as the initial
-         * property value.
-         */
-        ObservableProperty(Prop_T &&initialValue):
-                SubjectEncapsulation<Prop_T>(initialValue),
-                Observable<Prop_T, SignalEmitter_T, Connection_T, Functional_T, Prop_T &>(*this->get())
+        Property(Prop_T &&initialValue):
+                SubjectOwner<Prop_T>(initialValue)
         {
         }
 
@@ -52,9 +41,8 @@ namespace daball::props::base {
          * Creates a new ObservableProperty<Prop_T> by creating a copy of the source.
          * Observers will not be copied.
          */
-        ObservableProperty(const ObservableProperty &source):
-                SubjectEncapsulation<Prop_T>(source),
-                Observable<Prop_T, SignalEmitter_T, Connection_T, Functional_T, Prop_T &>(*this->get())
+        Property(const Property &source):
+                SubjectOwner<Prop_T>(source)
         {
         }
 

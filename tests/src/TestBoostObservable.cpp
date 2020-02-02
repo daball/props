@@ -4,7 +4,7 @@
 //Define our Module name (prints at testing)
 #include <boost/signals2.hpp>
 #include <daball/props/behaviors/boost/BoostObservable.hpp>
-#define BOOST_TEST_MODULE BoostObservable
+#define BOOST_TEST_MODULE TestBoostObservable
 //VERY IMPORTANT - include this last
 #include <boost/test/unit_test.hpp>
 

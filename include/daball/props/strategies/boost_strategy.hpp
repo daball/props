@@ -18,6 +18,7 @@ namespace daball::props {
     typedef BoostSignals2SignalConnection SignalConnection;
     typedef BoostSignals2SlotHandler SlotHandler;
     typedef BoostSignals2SignalEmitter SignalEmitter;
+    typedef Boost2SignalsObservableProperty ObservableProperty;
 }
 
 #endif
