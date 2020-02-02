@@ -51,19 +51,6 @@ namespace daball::props::behaviors::base {
 //        }
 //        ~SubjectOwner() = default;
 //
-//        //=
-//        virtual void operator=(const std::nullptr_t &) { this->unset(); }
-//        virtual void operator=(const Subject_T &propValue) { this->set(propValue); }
-//
-//        //    void operator=(Prop_T &&propValue) { this->subject = std::make_unique<Prop_T>(propValue); }
-//        virtual void operator=(const SubjectEncapsulation &subjectEncapsulation) {
-//            this->subject = std::make_unique<Subject_T>(*subjectEncapsulation.subject);
-//        }
-//
-//        virtual void operator=(SubjectEncapsulation &&subjectEncapsulation) {
-//            this->subject = std::move(subjectEncapsulation.subject);
-//        }
-//
 //        //negate
 //        virtual SubjectEncapsulation &operator-() { return {-(*this->subject)}; }
 //

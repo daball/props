@@ -1,5 +1,6 @@
 #pragma once
 #include "interfaces/IEqualityProxy.hpp"
+#include "SubjectReferrer.hpp"
 namespace daball::props::behaviors::base {
     template<typename Subject_T>
     class EqualityProxy:

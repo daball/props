@@ -13,6 +13,8 @@
 #include "mocks/InequalityProxyTestClass.hpp"
 #include "mocks/LesserThanProxyTestClass.hpp"
 #include "mocks/LesserThanOrEqualityProxyTestClass.hpp"
+#include "mocks/LogicalNotProxyTestClass.hpp"
+#include "mocks/NegationProxyTestClass.hpp"
 #include "mocks/PointerProxyTestClass.hpp"
 #include "mocks/SettableTestClass.hpp"
 #include "mocks/CombinatorialProxyTestClass.hpp"
@@ -30,6 +32,8 @@ using daball::props::tests::GreaterThanOrEqualityProxyTestClass;
 using daball::props::tests::InequalityProxyTestClass;
 using daball::props::tests::LesserThanProxyTestClass;
 using daball::props::tests::LesserThanOrEqualityProxyTestClass;
+using daball::props::tests::LogicalNotProxyTestClass;
+using daball::props::tests::NegationProxyTestClass;
 using daball::props::tests::PointerProxyTestClass;
 using daball::props::tests::SettableTestClass;
 using daball::props::tests::CombinatorialProxyTestClass;
@@ -342,6 +346,29 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(false, aStringObject3 < aStringObject1);
         BOOST_CHECK_EQUAL(false, aStringObject3 < aStringObject2);
         BOOST_CHECK_EQUAL(false, aStringObject3 < aStringObject3);
+    }
+
+    BOOST_AUTO_TEST_CASE( test_LogicalNotProxy )
+    {
+        bool t = true;
+        bool f = false;
+        const bool expectedTrue = true;
+        const bool expectedFalse = false;
+        LogicalNotProxyTestClass<bool> aBoolTrue(t);
+        LogicalNotProxyTestClass<bool> aBoolFalse(f);
+        bool actualNotTrue = !aBoolTrue;
+        bool actualNotFalse = !aBoolFalse;
+        BOOST_CHECK_EQUAL(expectedTrue, actualNotFalse);
+        BOOST_CHECK_EQUAL(expectedFalse, actualNotTrue);
+    }
+
+    BOOST_AUTO_TEST_CASE( test_NegationProxy )
+    {
+        int i = 99;
+        const int expectedNegation = -99;
+        NegationProxyTestClass<int> anIntObject(i);
+        int actualNegation = -anIntObject;
+        BOOST_CHECK_EQUAL(expectedNegation, actualNegation);
     }
 
     BOOST_AUTO_TEST_CASE( test_PointerProxy )
