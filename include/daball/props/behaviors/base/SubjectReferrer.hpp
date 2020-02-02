@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <optional>
 namespace daball::props::behaviors::base {
     template<typename Subject_T>
