@@ -1,5 +1,4 @@
 #pragma once
-
 namespace daball::props::behaviors::base::interfaces {
     template<typename Identity_T>
     class IInequalityProxy;

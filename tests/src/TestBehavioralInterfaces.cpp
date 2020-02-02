@@ -21,8 +21,7 @@
 
 using daball::props::tests::ArrowProxyTestClass;
 using daball::props::tests::CoercionProxyTestClass;
-using daball::props::tests::EqualityProxyRefTestClass;
-using daball::props::tests::EqualityProxyOwnerTestClass;
+using daball::props::tests::EqualityProxyTestClass;
 using daball::props::tests::GettableTestClass;
 using daball::props::tests::GreaterThanProxyTestClass;
 using daball::props::tests::GreaterThanOrEqualityProxyTestClass;
@@ -82,9 +81,9 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         std::string s1 = "Hello Equality!";
         std::string s2 = "Hello Equality!";
         std::string s3 = "Goodbye!";
-        EqualityProxyRefTestClass<std::string> aStringObject1(s1);
-        EqualityProxyRefTestClass<std::string> aStringObject2(s2);
-        EqualityProxyRefTestClass<std::string> aStringObject3(s3);
+        EqualityProxyTestClass<std::string> aStringObject1(s1);
+        EqualityProxyTestClass<std::string> aStringObject2(s2);
+        EqualityProxyTestClass<std::string> aStringObject3(s3);
         // check data proxy equals
         BOOST_CHECK_EQUAL(true, aStringObject1 == s1);
         BOOST_CHECK_EQUAL(true, aStringObject2 == s1);
@@ -424,6 +423,16 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         //PointerProxy (*T dereference) Proxy
         BOOST_CHECK_EQUAL(true, (*aStringObject1).length() == s1.length());
         BOOST_CHECK_EQUAL(true, (*aStringObject2).length() == s2.length());
+
+        //update underlying string via set()
+        std::string newString1 = "1 More Time.";
+        std::string newString2 = "2 More Times.";
+        aStringObject1.set(newString1);
+        aStringObject2.set(newString2);
+
+        //s1 should equal newString1, s2 should equal newString2
+        BOOST_CHECK_EQUAL(true, s1 == newString1); //magic
+        BOOST_CHECK_EQUAL(true, s2 == newString2); //magic
     }
 
 BOOST_AUTO_TEST_SUITE_END()

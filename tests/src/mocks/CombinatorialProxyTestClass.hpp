@@ -1,6 +1,4 @@
 #pragma once
-//#include <daball/props/behaviors/base/SubjectOwner.hpp>
-#include <daball/props/behaviors/base/SubjectReferrer.hpp>
 #include <daball/props/behaviors/base/ArrowProxy.hpp>
 #include <daball/props/behaviors/base/CoercionProxy.hpp>
 #include <daball/props/behaviors/base/EqualityProxy.hpp>
@@ -11,33 +9,36 @@
 #include <daball/props/behaviors/base/LesserThanProxy.hpp>
 #include <daball/props/behaviors/base/LesserThanOrEqualityProxy.hpp>
 #include <daball/props/behaviors/base/PointerProxy.hpp>
+#include <daball/props/behaviors/base/Settable.hpp>
 using namespace daball::props::behaviors::base;
 namespace daball::props::tests {
     template<typename T>
     class CombinatorialProxyTestClass:
             public ArrowProxy<T>,
             public CoercionProxy<T>,
-            public EqualityProxy<SubjectReferrer<T>>, //<-so I defined this one differently, to try
-            public Gettable<T>,                       //template-template-template patterns, nothing special tho
+            public EqualityProxy<T>,
+            public Gettable<T>,
             public GreaterThanProxy<T>,
             public GreaterThanOrEqualityProxy<T>,
             public InequalityProxy<T>,
             public LesserThanProxy<T>,
             public LesserThanOrEqualityProxy<T>,
-            public PointerProxy<T>
+            public PointerProxy<T>,
+            public Settable<T>
     {
     public:
         CombinatorialProxyTestClass(T &initialRef):
                 ArrowProxy<T>(initialRef),
                 CoercionProxy<T>(initialRef),
-                EqualityProxy<SubjectReferrer<T>>(initialRef),
+                EqualityProxy<T>(initialRef),
                 Gettable<T>(initialRef),
                 GreaterThanProxy<T>(initialRef),
                 GreaterThanOrEqualityProxy<T>(initialRef),
                 InequalityProxy<T>(initialRef),
                 LesserThanProxy<T>(initialRef),
                 LesserThanOrEqualityProxy<T>(initialRef),
-                PointerProxy<T>(initialRef)
+                PointerProxy<T>(initialRef),
+                Settable<T>(initialRef)
         {}
     };
 }
