@@ -6,14 +6,14 @@
 #include "mocks/ArrowProxyTestClass.hpp"
 #include "mocks/CoercionProxyTestClass.hpp"
 #include "mocks/EqualityProxyTestClass.hpp"
-//#include "mocks/GettableTestClass.hpp"
+#include "mocks/GettableTestClass.hpp"
 #include "mocks/GreaterThanProxyTestClass.hpp"
 #include "mocks/GreaterThanOrEqualityProxyTestClass.hpp"
 #include "mocks/InequalityProxyTestClass.hpp"
 #include "mocks/LesserThanProxyTestClass.hpp"
 #include "mocks/LesserThanOrEqualityProxyTestClass.hpp"
 #include "mocks/PointerProxyTestClass.hpp"
-//#include "mocks/SettableTestClass.hpp"
+#include "mocks/SettableTestClass.hpp"
 #include "mocks/CombinatorialProxyTestClass.hpp"
 #define BOOST_TEST_MODULE TestBehavioralInterfaces
 //VERY IMPORTANT - include this last
@@ -23,19 +23,19 @@ using daball::props::tests::ArrowProxyTestClass;
 using daball::props::tests::CoercionProxyTestClass;
 using daball::props::tests::EqualityProxyRefTestClass;
 using daball::props::tests::EqualityProxyOwnerTestClass;
-//using daball::props::tests::GettableTestClass;
+using daball::props::tests::GettableTestClass;
 using daball::props::tests::GreaterThanProxyTestClass;
 using daball::props::tests::GreaterThanOrEqualityProxyTestClass;
 using daball::props::tests::InequalityProxyTestClass;
 using daball::props::tests::LesserThanProxyTestClass;
 using daball::props::tests::LesserThanOrEqualityProxyTestClass;
 using daball::props::tests::PointerProxyTestClass;
-//using daball::props::tests::SettableTestClass;
+using daball::props::tests::SettableTestClass;
 using daball::props::tests::CombinatorialProxyTestClass;
 
 BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
 
-    BOOST_AUTO_TEST_CASE( test_IArrowProxy )
+    BOOST_AUTO_TEST_CASE( test_ArrowProxy )
     {
         std::string *s = new std::string("Hello ArrowProxy!");
         ArrowProxyTestClass<std::string> aStringObject(*s);
@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         delete s;
     }
 
-    BOOST_AUTO_TEST_CASE( test_ICoercionProxy )
+    BOOST_AUTO_TEST_CASE( test_CoercionProxy )
     {
         std::string *s = new std::string("Hello CoercionProxy!");
         CoercionProxyTestClass<std::string> aStringObject(*s);
@@ -133,16 +133,16 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(true, aStringObject2 == aStringObject3);
     }
 
-//    BOOST_AUTO_TEST_CASE( test_IGettable )
-//    {
-//        std::string s = "Hello Gettable!";
-//        GettableTestClass<std::string> aStringObject(s);
-//        BOOST_CHECK_EQUAL(s.length(), 15);
-//        BOOST_CHECK_EQUAL(aStringObject.get().length(), 15);
-//        BOOST_CHECK_EQUAL(s.length(), aStringObject.get().length());
-//    }
+    BOOST_AUTO_TEST_CASE( test_Gettable )
+    {
+        std::string s = "Hello Gettable!";
+        GettableTestClass<std::string> aStringObject(s);
+        BOOST_CHECK_EQUAL(s.length(), 15);
+        BOOST_CHECK_EQUAL(aStringObject.get().length(), 15);
+        BOOST_CHECK_EQUAL(s.length(), aStringObject.get().length());
+    }
 
-    BOOST_AUTO_TEST_CASE( test_IGreaterThanOrEqualityProxy )
+    BOOST_AUTO_TEST_CASE( test_GreaterThanOrEqualityProxy )
     {
         std::string s1 = "A Hello GreaterThanOrEqualityProxy!";
         std::string s2 = "B Hello GreaterThanOrEqualityProxy!";
@@ -177,7 +177,7 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(true, aStringObject3 >= aStringObject3);
     }
 
-    BOOST_AUTO_TEST_CASE( test_IGreaterThanProxy )
+    BOOST_AUTO_TEST_CASE( test_GreaterThanProxy )
     {
         std::string s1 = "A Hello GreaterThanProxy!";
         std::string s2 = "B Hello GreaterThanProxy!";
@@ -212,7 +212,7 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(false, aStringObject3 > aStringObject3);
     }
 
-    BOOST_AUTO_TEST_CASE( test_IInequalityProxy )
+    BOOST_AUTO_TEST_CASE( test_InequalityProxy )
     {
         std::string s1 = "Hello Inequality!";
         std::string s2 = "Hello Inequality!";
@@ -247,7 +247,7 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(false, aStringObject3 != aStringObject3);
     }
 
-    BOOST_AUTO_TEST_CASE( test_ILesserThanOrEqualityProxy )
+    BOOST_AUTO_TEST_CASE( test_LesserThanOrEqualityProxy )
     {
         std::string s1 = "A Hello LesserThanOrEqualityProxy!";
         std::string s2 = "B Hello LesserThanOrEqualityProxy!";
@@ -282,7 +282,7 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(true, aStringObject3 <= aStringObject3);
     }
 
-    BOOST_AUTO_TEST_CASE( test_ILesserThanProxy )
+    BOOST_AUTO_TEST_CASE( test_LesserThanProxy )
     {
         std::string s1 = "A Hello LesserThanProxy!";
         std::string s2 = "B Hello LesserThanProxy!";
@@ -317,7 +317,7 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(false, aStringObject3 < aStringObject3);
     }
 
-    BOOST_AUTO_TEST_CASE( test_IPointerProxy )
+    BOOST_AUTO_TEST_CASE( test_PointerProxy )
     {
         std::string *s = new std::string("Hello PointerProxy!");
         PointerProxyTestClass<std::string> aStringObject(*s);
@@ -327,25 +327,25 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         delete s;
     }
 
-//    BOOST_AUTO_TEST_CASE( test_ISettable )
-//    {
-//        std::string sEmpty = "";
-//        std::string s1 = "Hello Settable!";
-//        SettableTestClass<std::string> aNullRef;
-//        BOOST_CHECK_EQUAL(aNullRef.isSet(), false);
-//        BOOST_CHECK(aNullRef.val == nullptr);
-//        aNullRef.set(s1);
-//        BOOST_CHECK_EQUAL(aNullRef.isSet(), true);
-//        BOOST_CHECK_EQUAL(aNullRef.val.get()->length(), 15);
-//
-//        SettableTestClass<std::string> aStringObject(sEmpty);
-//        BOOST_CHECK_EQUAL(aStringObject.isSet(), true);
-//        BOOST_CHECK_EQUAL(sEmpty.length(), 0);
-//        BOOST_CHECK_EQUAL(aStringObject.val->length(), 0);
-//        aStringObject.set(s1);
-//        BOOST_CHECK_EQUAL(aStringObject.isSet(), true);
-//        BOOST_CHECK_EQUAL(s1.length(), aStringObject.val.get()->length());
-//    }
+    BOOST_AUTO_TEST_CASE( test_Settable )
+    {
+        std::string sEmpty = ""; //starts out empty
+        std::string s1 = "Hello Settable!"; //should be copied to the empty string
+
+        SettableTestClass<std::string> aNullRef; //unassigned property facade with a set() setter
+        BOOST_CHECK_EQUAL(aNullRef.isSet(), false); //check isSet() is false (~nullopt)
+        aNullRef.set(s1); //set it to something
+        BOOST_CHECK_EQUAL(aNullRef.isSet(), true); //check if is assigned now, should be affirmative
+
+        SettableTestClass<std::string> aStringObject(sEmpty); //property with set() on sEmpty target
+        BOOST_CHECK_EQUAL(aStringObject.isSet(), true); //check isSet() is true (although size()==0)
+        BOOST_CHECK_EQUAL(sEmpty.length(), 0); //facts
+        BOOST_CHECK_EQUAL(s1.length(), 15); //facts
+        aStringObject.set(s1); //copy s1-->sEmpty via ref...
+        BOOST_CHECK_EQUAL(aStringObject.isSet(), true); //should still be true
+        BOOST_CHECK_EQUAL(s1.length(), sEmpty.length()); //magic
+        BOOST_CHECK_EQUAL(sEmpty.length(), 15); //magic
+    }
 
     BOOST_AUTO_TEST_CASE( test_CombinatorialProxyTestClass )
     {
@@ -365,6 +365,9 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         //Equality== Proxy
         BOOST_CHECK_EQUAL(true, aStringObject1 == s1);
         BOOST_CHECK_EQUAL(true, aStringObject2 == s2);
+        //get() behavior
+        BOOST_CHECK_EQUAL(true, aStringObject1.get() == s1);
+        BOOST_CHECK_EQUAL(true, aStringObject2.get() == s2);
         //GreaterThan> Proxy
         BOOST_CHECK_EQUAL(true, aStringObject2 > s1);
         BOOST_CHECK_EQUAL(true, aStringObject2 > aStringObject1);
@@ -400,6 +403,9 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         //Equality== Proxy
         BOOST_CHECK_EQUAL(true, aStringObject1 == s1);
         BOOST_CHECK_EQUAL(true, aStringObject2 == s2);
+        //get() behavior
+        BOOST_CHECK_EQUAL(true, aStringObject1.get() == s1);
+        BOOST_CHECK_EQUAL(true, aStringObject2.get() == s2);
         //GreaterThan> Proxy
         BOOST_CHECK_EQUAL(true, aStringObject2 > s1);
         BOOST_CHECK_EQUAL(true, aStringObject2 > aStringObject1);

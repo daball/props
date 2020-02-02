@@ -1,24 +1,24 @@
 #pragma once
-#include "interfaces/ICoercionProxy.hpp"
+#include "interfaces/IGettable.hpp"
 #include "SubjectReferrer.hpp"
 namespace daball::props::behaviors::base {
     template<typename Subject_T>
-    class CoercionProxy:
-            public interfaces::ICoercionProxy<Subject_T>,
+    class Gettable:
+            public interfaces::IGettable<Subject_T>,
             private SubjectReferrer<Subject_T>
     {
     public:
-        CoercionProxy():
+        Gettable():
                 SubjectReferrer<Subject_T>()
         {}
-        CoercionProxy(Subject_T &initialValue):
+        Gettable(Subject_T &initialValue):
                 SubjectReferrer<Subject_T>(initialValue)
         {}
-        CoercionProxy(CoercionProxy<Subject_T> &source):
+        Gettable(Gettable<Subject_T> &source):
                 SubjectReferrer<Subject_T>(source)
         {}
-        virtual operator Subject_T const&() const {
-            return this->getSubjectCRef();
+        virtual Subject_T &get() {
+            return this->getSubjectRef();
         }
     };
 }

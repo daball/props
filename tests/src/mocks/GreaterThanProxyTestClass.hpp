@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include <daball/props/behaviors/base/GreaterThanProxy.hpp>
 using daball::props::behaviors::base::GreaterThanProxy;
 namespace daball::props::tests {

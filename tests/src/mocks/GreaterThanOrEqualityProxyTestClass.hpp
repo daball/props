@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include <daball/props/behaviors/base/GreaterThanOrEqualityProxy.hpp>
 using daball::props::behaviors::base::GreaterThanOrEqualityProxy;
 namespace daball::props::tests {

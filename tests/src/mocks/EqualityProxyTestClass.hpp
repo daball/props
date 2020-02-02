@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include <daball/props/behaviors/base/SubjectOwner.hpp>
 #include <daball/props/behaviors/base/SubjectReferrer.hpp>
 #include <daball/props/behaviors/base/EqualityProxy.hpp>

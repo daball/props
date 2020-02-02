@@ -1,18 +1,13 @@
 #pragma once
-#include <memory>
-#include <daball/props/behaviors/base/interfaces/IGettable.hpp>
-using daball::props::behaviors::base::IGettable;
+#include <daball/props/behaviors/base/Gettable.hpp>
+using daball::props::behaviors::base::Gettable;
 namespace daball::props::tests {
     template<typename T>
     class GettableTestClass :
-            public IGettable<T> {
-    private:
-        std::unique_ptr <T> val;
+            public Gettable<T> {
     public:
-        GettableTestClass(T const& initialVal):
-                val{std::make_unique<T>(initialVal)} {}
-        virtual T &get() {
-            return *this->val.get();
-        }
+        GettableTestClass(T &initialVal):
+                Gettable<T>(initialVal)
+        {}
     };
 }

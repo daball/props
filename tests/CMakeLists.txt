@@ -1,5 +1,5 @@
 enable_testing()
-find_package(Boost 1.72.0 REQUIRED COMPONENTS locale log unit_test_framework) #math)
+find_package(Boost 1.71.0 REQUIRED COMPONENTS locale log unit_test_framework) #math)
 #message("trace: ${daball_props_DIR}")
 #set(CMAKE_PREFIX_PATH ${daball_props_DIR})
 find_package(props 1.0.0 CONFIG REQUIRED)

@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include "interfaces/IArrowProxy.hpp"
 #include "SubjectReferrer.hpp"
 namespace daball::props::behaviors::base {

@@ -1,10 +1,10 @@
 #pragma once
-#include <memory>
 //#include <daball/props/behaviors/base/SubjectOwner.hpp>
 #include <daball/props/behaviors/base/SubjectReferrer.hpp>
 #include <daball/props/behaviors/base/ArrowProxy.hpp>
 #include <daball/props/behaviors/base/CoercionProxy.hpp>
 #include <daball/props/behaviors/base/EqualityProxy.hpp>
+#include <daball/props/behaviors/base/Gettable.hpp>
 #include <daball/props/behaviors/base/GreaterThanProxy.hpp>
 #include <daball/props/behaviors/base/GreaterThanOrEqualityProxy.hpp>
 #include <daball/props/behaviors/base/InequalityProxy.hpp>
@@ -18,7 +18,8 @@ namespace daball::props::tests {
             public ArrowProxy<T>,
             public CoercionProxy<T>,
             public EqualityProxy<SubjectReferrer<T>>, //<-so I defined this one differently, to try
-            public GreaterThanProxy<T>,               //template-template-template patterns, nothing special tho
+            public Gettable<T>,                       //template-template-template patterns, nothing special tho
+            public GreaterThanProxy<T>,
             public GreaterThanOrEqualityProxy<T>,
             public InequalityProxy<T>,
             public LesserThanProxy<T>,
@@ -30,6 +31,7 @@ namespace daball::props::tests {
                 ArrowProxy<T>(initialRef),
                 CoercionProxy<T>(initialRef),
                 EqualityProxy<SubjectReferrer<T>>(initialRef),
+                Gettable<T>(initialRef),
                 GreaterThanProxy<T>(initialRef),
                 GreaterThanOrEqualityProxy<T>(initialRef),
                 InequalityProxy<T>(initialRef),

@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include <daball/props/behaviors/base/InequalityProxy.hpp>
 using daball::props::behaviors::base::InequalityProxy;
 namespace daball::props::tests {

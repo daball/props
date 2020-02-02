@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include <daball/props/behaviors/base/LesserThanProxy.hpp>
 using daball::props::behaviors::base::LesserThanProxy;
 namespace daball::props::tests {
