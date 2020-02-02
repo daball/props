@@ -1,5 +1,6 @@
 #pragma once
 #include <daball/props/behaviors/base/ArrowProxy.hpp>
+#include <daball/props/behaviors/base/AssignmentProxy.hpp>
 #include <daball/props/behaviors/base/CoercionProxy.hpp>
 #include <daball/props/behaviors/base/EqualityProxy.hpp>
 #include <daball/props/behaviors/base/Gettable.hpp>
@@ -15,6 +16,7 @@ namespace daball::props::tests {
     template<typename T>
     class CombinatorialProxyTestClass:
             public ArrowProxy<T>,
+            public AssignmentProxy<T>,
             public CoercionProxy<T>,
             public EqualityProxy<T>,
             public Gettable<T>,
@@ -29,6 +31,7 @@ namespace daball::props::tests {
     public:
         CombinatorialProxyTestClass(T &initialRef):
                 ArrowProxy<T>(initialRef),
+                AssignmentProxy<T>(initialRef),
                 CoercionProxy<T>(initialRef),
                 EqualityProxy<T>(initialRef),
                 Gettable<T>(initialRef),

@@ -4,6 +4,7 @@
 //Define our Module name (prints at testing)
 #include <string>
 #include "mocks/ArrowProxyTestClass.hpp"
+#include "mocks/AssignmentProxyTestClass.hpp"
 #include "mocks/CoercionProxyTestClass.hpp"
 #include "mocks/EqualityProxyTestClass.hpp"
 #include "mocks/GettableTestClass.hpp"
@@ -20,6 +21,7 @@
 #include <boost/test/unit_test.hpp>
 
 using daball::props::tests::ArrowProxyTestClass;
+using daball::props::tests::AssignmentProxyTestClass;
 using daball::props::tests::CoercionProxyTestClass;
 using daball::props::tests::EqualityProxyTestClass;
 using daball::props::tests::GettableTestClass;
@@ -42,6 +44,32 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(aStringObject->length(), 17);
         BOOST_CHECK_EQUAL(s->length(), aStringObject->length());
         delete s;
+    }
+
+    BOOST_AUTO_TEST_CASE( test_AssignmentProxy )
+    {
+        std::string sEmpty1 = ""; //starts out empty
+        std::string sEmpty2 = ""; //starts out empty
+        std::string s1 = "Hello 1Settable!"; //should be copied to the empty string
+        std::string s2 = "Hello 2Settable!"; //should be copied to the empty string
+
+        // attempt to circumvent all the side effects of this operator
+        AssignmentProxyTestClass<std::string> aNullRef; //unassigned property facade with a set() setter
+        aNullRef = sEmpty1; // assigns ref to sEmpty1& (lvalue)
+        aNullRef = nullptr; // assigns ref to "nullptr", technically "nullopt" though
+        aNullRef = sEmpty1; // assigns ref to sEmpty1& (lvalue)
+        aNullRef = ::std::nullopt; // assigns ref to "nullopt"
+        aNullRef = sEmpty1; // assigns ref to sEmpty1& (lvalue)
+        aNullRef = s1; // copies s1 (rvalue) into sEmpty1 (lvalue)
+        //make sure it is so
+        BOOST_CHECK_EQUAL(sEmpty1, s1);
+        aNullRef = nullptr;
+
+        AssignmentProxyTestClass<std::string> aStringObject(sEmpty2); //property with set() on sEmpty target
+        aStringObject = s2;
+        //make sure it is so
+        BOOST_CHECK_EQUAL(sEmpty2, s2);
+        aNullRef = ::std::nullopt;
     }
 
     BOOST_AUTO_TEST_CASE( test_CoercionProxy )
@@ -335,6 +363,9 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(aNullRef.isSet(), false); //check isSet() is false (~nullopt)
         aNullRef.set(s1); //set it to something
         BOOST_CHECK_EQUAL(aNullRef.isSet(), true); //check if is assigned now, should be affirmative
+        aNullRef.unset(); //unset it
+        BOOST_CHECK_EQUAL(aNullRef.isSet(), false); //check if not assigned now, should be negative
+        aNullRef.set(s1); //set it again
 
         SettableTestClass<std::string> aStringObject(sEmpty); //property with set() on sEmpty target
         BOOST_CHECK_EQUAL(aStringObject.isSet(), true); //check isSet() is true (although size()==0)
@@ -433,6 +464,19 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         //s1 should equal newString1, s2 should equal newString2
         BOOST_CHECK_EQUAL(true, s1 == newString1); //magic
         BOOST_CHECK_EQUAL(true, s2 == newString2); //magic
+
+        //update underlying string via assignment
+        std::string newString3 = "Alpha";
+        std::string newString4 = "Beta";
+        aStringObject1 = newString3;
+        aStringObject2 = newString4;
+
+        //s1 should equal newString3, s2 should equal newString4
+        //newString1 and newString2 should be intact
+        BOOST_CHECK_EQUAL(true, s1 != newString1); //absence of magic
+        BOOST_CHECK_EQUAL(true, s2 != newString2); //absence of magic
+        BOOST_CHECK_EQUAL(true, s1 == newString3); //magic
+        BOOST_CHECK_EQUAL(true, s2 == newString4); //magic
     }
 
 BOOST_AUTO_TEST_SUITE_END()

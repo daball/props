@@ -17,11 +17,8 @@ namespace daball::props::behaviors::base {
         Settable(Settable<Subject_T> &source):
                 SubjectReferrer<Subject_T>(source)
         {}
-        virtual void set(Subject_T &newValue) {
-            this->setSubjectOrSubjectRef(newValue);
-        }
-        virtual bool isSet() const {
-            return this->hasSubjectRef();
-        }
+        virtual void set(Subject_T &newValue) { this->setSubjectOrSubjectRef(newValue); }
+        virtual bool isSet() const { return this->hasSubjectRef(); }
+        virtual void unset() { this->unsetSubjectRef(); }
     };
 }

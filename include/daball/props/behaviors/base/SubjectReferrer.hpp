@@ -10,13 +10,22 @@ namespace daball::props::behaviors::base {
         virtual Subject_T &getSubjectRef() { return *this->subjectRef; }
         virtual Subject_T const& getSubjectCRef() const { return *this->subjectRef; }
         virtual void setSubjectRef(Subject_T &reference) { this->subjectRef = reference; }
-        virtual void setSubject(Subject_T &referenceValue) { *(&this->getSubjectRef()) = referenceValue; }
+        virtual void setSubject(const Subject_T &referenceValue) {
+            if (!this->hasSubjectRef()) {
+                //attempt to construct a default object to put it in
+                //if default constructor does not exist, this will fail
+                Subject_T neverSetOptionalSubject;
+                this->subjectRef = neverSetOptionalSubject;
+            }
+            *(&this->getSubjectRef()) = referenceValue;
+        }
         virtual void setSubjectOrSubjectRef(Subject_T &referenceOrReferenceValue) {
             if (this->hasSubjectRef())
                 this->setSubject(referenceOrReferenceValue);
             else
                 this->setSubjectRef(referenceOrReferenceValue);
         }
+        virtual void unsetSubjectRef() { this->subjectRef = ::std::nullopt; }
     public:
         SubjectReferrer():
                 subjectRef{::std::nullopt}

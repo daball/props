@@ -6,6 +6,6 @@ namespace daball::props::behaviors::base::interfaces {
     public:
         virtual void set(Subject_T &newValue) = 0;
         virtual bool isSet() const = 0;
-//        virtual void unset() = 0;
+        virtual void unset() = 0;
     };
 }
