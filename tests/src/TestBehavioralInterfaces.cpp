@@ -3,9 +3,11 @@
 
 //Define our Module name (prints at testing)
 #include <string>
+#include "mocks/AdditionProxyTestClass.hpp"
 #include "mocks/ArrowProxyTestClass.hpp"
 #include "mocks/AssignmentProxyTestClass.hpp"
 #include "mocks/CoercionProxyTestClass.hpp"
+#include "mocks/DivisionProxyTestClass.hpp"
 #include "mocks/EqualityProxyTestClass.hpp"
 #include "mocks/GettableTestClass.hpp"
 #include "mocks/GreaterThanProxyTestClass.hpp"
@@ -14,17 +16,22 @@
 #include "mocks/LesserThanProxyTestClass.hpp"
 #include "mocks/LesserThanOrEqualityProxyTestClass.hpp"
 #include "mocks/LogicalNotProxyTestClass.hpp"
+#include "mocks/ModuloProxyTestClass.hpp"
+#include "mocks/MultiplicationProxyTestClass.hpp"
 #include "mocks/NegationProxyTestClass.hpp"
 #include "mocks/PointerProxyTestClass.hpp"
 #include "mocks/SettableTestClass.hpp"
+#include "mocks/SubtractionProxyTestClass.hpp"
 #include "mocks/CombinatorialProxyTestClass.hpp"
 #define BOOST_TEST_MODULE TestBehavioralInterfaces
 //VERY IMPORTANT - include this last
 #include <boost/test/unit_test.hpp>
 
+using daball::props::tests::AdditionProxyTestClass;
 using daball::props::tests::ArrowProxyTestClass;
 using daball::props::tests::AssignmentProxyTestClass;
 using daball::props::tests::CoercionProxyTestClass;
+using daball::props::tests::DivisionProxyTestClass;
 using daball::props::tests::EqualityProxyTestClass;
 using daball::props::tests::GettableTestClass;
 using daball::props::tests::GreaterThanProxyTestClass;
@@ -33,12 +40,31 @@ using daball::props::tests::InequalityProxyTestClass;
 using daball::props::tests::LesserThanProxyTestClass;
 using daball::props::tests::LesserThanOrEqualityProxyTestClass;
 using daball::props::tests::LogicalNotProxyTestClass;
+using daball::props::tests::ModuloProxyTestClass;
+using daball::props::tests::MultiplicationProxyTestClass;
 using daball::props::tests::NegationProxyTestClass;
 using daball::props::tests::PointerProxyTestClass;
 using daball::props::tests::SettableTestClass;
+using daball::props::tests::SubtractionProxyTestClass;
 using daball::props::tests::CombinatorialProxyTestClass;
 
 BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
+
+    BOOST_AUTO_TEST_CASE( test_AdditionProxy )
+    {
+        int a = 12;
+        int b = 67;
+        int expected = 79;
+        AdditionProxyTestClass<int> anIntObjectA(a);
+        AdditionProxyTestClass<int> anIntObjectB(b);
+        BOOST_CHECK_EQUAL(expected, a + b);
+        int result1 = anIntObjectA + b;
+        int result2 = a + anIntObjectB;
+        int result3 = anIntObjectA + anIntObjectB;
+        BOOST_CHECK_EQUAL(true, expected == result1);
+        BOOST_CHECK_EQUAL(true, expected == result2);
+        BOOST_CHECK_EQUAL(true, expected == result3);
+    }
 
     BOOST_AUTO_TEST_CASE( test_ArrowProxy )
     {
@@ -106,6 +132,22 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
 //        BOOST_CHECK_EQUAL(asgncLref.length(), 19);
 //        BOOST_CHECK_EQUAL(asgnLcref.length(), 19);
         delete s;
+    }
+
+    BOOST_AUTO_TEST_CASE( test_DivisionProxy )
+    {
+        int a = 60;
+        int b = 6;
+        int expected = 10;
+        DivisionProxyTestClass<int> anIntObjectA(a);
+        DivisionProxyTestClass<int> anIntObjectB(b);
+        BOOST_CHECK_EQUAL(expected, a/b);
+        int result1 = anIntObjectA / b;
+        int result2 = a / anIntObjectB;
+        int result3 = anIntObjectA / anIntObjectB;
+        BOOST_CHECK_EQUAL(true, expected == result1);
+        BOOST_CHECK_EQUAL(true, expected == result2);
+        BOOST_CHECK_EQUAL(true, expected == result3);
     }
 
     BOOST_AUTO_TEST_CASE( test_EqualityProxy )
@@ -362,6 +404,38 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(expectedFalse, actualNotTrue);
     }
 
+    BOOST_AUTO_TEST_CASE( test_ModuloProxy )
+    {
+        int a = 131;
+        int b = 17;
+        int expected = 12;
+        ModuloProxyTestClass<int> anIntObjectA(a);
+        ModuloProxyTestClass<int> anIntObjectB(b);
+        BOOST_CHECK_EQUAL(expected, a % b);
+        int result1 = anIntObjectA % b;
+        int result2 = a % anIntObjectB;
+        int result3 = anIntObjectA % anIntObjectB;
+        BOOST_CHECK_EQUAL(true, expected == result1);
+        BOOST_CHECK_EQUAL(true, expected == result2);
+        BOOST_CHECK_EQUAL(true, expected == result3);
+    }
+
+    BOOST_AUTO_TEST_CASE( test_MultiplicationProxy )
+    {
+        int a = 15;
+        int b = 6;
+        int expected = 90;
+        MultiplicationProxyTestClass<int> anIntObjectA(a);
+        MultiplicationProxyTestClass<int> anIntObjectB(b);
+        BOOST_CHECK_EQUAL(expected, a * b);
+        int result1 = anIntObjectA * b;
+        int result2 = a * anIntObjectB;
+        int result3 = anIntObjectA * anIntObjectB;
+        BOOST_CHECK_EQUAL(true, expected == result1);
+        BOOST_CHECK_EQUAL(true, expected == result2);
+        BOOST_CHECK_EQUAL(true, expected == result3);
+    }
+
     BOOST_AUTO_TEST_CASE( test_NegationProxy )
     {
         int i = 99;
@@ -402,6 +476,22 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(aStringObject.isSet(), true); //should still be true
         BOOST_CHECK_EQUAL(s1.length(), sEmpty.length()); //magic
         BOOST_CHECK_EQUAL(sEmpty.length(), 15); //magic
+    }
+
+    BOOST_AUTO_TEST_CASE( test_SubtractionProxy )
+    {
+        int a = 99;
+        int b = 18;
+        int expected = 81;
+        SubtractionProxyTestClass<int> anIntObjectA(a);
+        SubtractionProxyTestClass<int> anIntObjectB(b);
+        BOOST_CHECK_EQUAL(expected, a - b);
+        int result1 = anIntObjectA - b;
+        int result2 = a - anIntObjectB;
+        int result3 = anIntObjectA - anIntObjectB;
+        BOOST_CHECK_EQUAL(true, expected == result1);
+        BOOST_CHECK_EQUAL(true, expected == result2);
+        BOOST_CHECK_EQUAL(true, expected == result3);
     }
 
     BOOST_AUTO_TEST_CASE( test_CombinatorialProxyTestClass )
