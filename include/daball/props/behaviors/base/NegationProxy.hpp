@@ -18,7 +18,7 @@ namespace daball::props::behaviors::base {
                 SubjectReferrer<Subject_T>(source)
         {}
         virtual Subject_T operator-() const {
-            return -(this->getSubjectCRef());
+            return -this->getSubjectCRef();
         };
     };
 }

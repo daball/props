@@ -1,6 +1,6 @@
 #pragma once
 
-#include <memory>
+//#include <memory>
 #include "daball/props/signals/base/SignalEmitter.hpp"
 #include "daball/props/signals/base/SlotHandler.hpp"
 
@@ -12,51 +12,32 @@ namespace daball::props::behaviors::base {
     class SubjectOwner
     {
     protected:
-        std::unique_ptr<Subject_T> subject;
+//        std::unique_ptr<Subject_T> subject;
+        Subject_T subject;
         virtual Subject_T &getSubject() {
-            return *this->subject.get();
+            return this->subject; //.get();
         }
     public:
-        SubjectOwner():
-                subject{nullptr}
-        {
-        }
-        SubjectOwner(Subject_T &initialValue):
-                subject{std::make_unique<Subject_T>(initialValue)}
-        {
-        }
-        SubjectOwner(const SubjectOwner &source):
-                subject{source.subject == nullptr ? nullptr : std::make_unique<Subject_T>(*source.get())}
-        {
-        }
-        ~SubjectOwner() = default;
-    };
-//    template<typename Subject_T>
-//    class SubjectOwner
-//    {
-//    protected:
-//        std::unique_ptr<Subject_T> subject;
-//    public:
 //        SubjectOwner():
-//                subject{nullptr}
+//                subject{std::make_unique<Subject_T>()}
 //        {
 //        }
+        template<typename ...Arg_Ts>
+        SubjectOwner<Subject_T>(Arg_Ts...args):
+                subject{Subject_T(args...)}
+//                subject{std::make_unique<Subject_T>(args...)}
+        {}
 //        SubjectOwner(Subject_T &initialValue):
 //                subject{std::make_unique<Subject_T>(initialValue)}
 //        {
 //        }
-//        SubjectOwner(const SubjectOwner &source):
+        SubjectOwner(const SubjectOwner<Subject_T> &source):
+                subject{source.subject}
 //                subject{source.subject == nullptr ? nullptr : std::make_unique<Subject_T>(*source.get())}
-//        {
-//        }
-//        ~SubjectOwner() = default;
-//
-//        //negate
-//        virtual SubjectEncapsulation &operator-() { return {-(*this->subject)}; }
-//
-//        //not
-//        virtual SubjectEncapsulation &operator!() { return {!(*this->subject)}; }
-//
+        {
+        }
+        ~SubjectOwner() = default;
+    };
 //        //+=, -=, *=, /=, %=
 //        virtual void operator+=(Subject_T &&propValue) {
 //            if (isSet()) {
@@ -121,96 +102,6 @@ namespace daball::props::behaviors::base {
 //            Subject_T returnValue{(*this->subject)--};
 //            this->triggerDidUpdate();
 //            return returnValue;
-//        }
-//
-//        //==
-//        virtual bool operator==(const SubjectEncapsulation &observableProperty) {
-//            return (*this->subject == *observableProperty.subject);
-//        }
-//
-//        virtual bool operator==(const Subject_T &propValue) { return (*this->subject == propValue); }
-//
-//        friend bool operator==(const Subject_T &propValue, const SubjectEncapsulation &observableProperty) {
-//            return (*observableProperty.subject == propValue);
-//        }
-//
-//        friend bool operator==(const SubjectEncapsulation &observableProperty, const Subject_T &propValue) {
-//            return (*observableProperty.subject == propValue);
-//        }
-//
-//        //!=
-//        bool operator!=(const SubjectEncapsulation &observableProperty) {
-//            return (*this->subject != *observableProperty.subject);
-//        }
-//
-//        virtual bool operator!=(const Subject_T &propValue) { return (*this->subject != propValue); }
-//
-//        friend bool operator!=(const Subject_T &propValue, const SubjectEncapsulation &observableProperty) {
-//            return (*observableProperty.subject != propValue);
-//        }
-//
-//        friend bool operator!=(const SubjectEncapsulation &observableProperty, const Subject_T &propValue) {
-//            return (*observableProperty.subject != propValue);
-//        }
-//
-//        //<
-//        virtual bool operator<(const SubjectEncapsulation &observableProperty) {
-//            return (*this->subject < *observableProperty.subject);
-//        }
-//
-//        virtual bool operator<(const Subject_T &propValue) { return (*this->subject < propValue); }
-//
-//        friend bool operator<(const Subject_T &propValue, const SubjectEncapsulation &observableProperty) {
-//            return (*observableProperty.subject < propValue);
-//        }
-//
-//        friend bool operator<(const SubjectEncapsulation &observableProperty, const Subject_T &propValue) {
-//            return (*observableProperty.subject < propValue);
-//        }
-//
-//        //<=
-//        virtual bool operator<=(const SubjectEncapsulation &observableProperty) {
-//            return (*this->subject <= *observableProperty.subject);
-//        }
-//
-//        virtual bool operator<=(const Subject_T &propValue) { return (*this->subject <= propValue); }
-//
-//        friend bool operator<=(const Subject_T &propValue, const SubjectEncapsulation &observableProperty) {
-//            return (*observableProperty.subject <= propValue);
-//        }
-//
-//        friend bool operator<=(const SubjectEncapsulation &observableProperty, const Subject_T &propValue) {
-//            return (*observableProperty.subject <= propValue);
-//        }
-//
-//        //>
-//        virtual bool operator>(const SubjectEncapsulation &observableProperty) {
-//            return (*this->subject > *observableProperty.subject);
-//        }
-//
-//        virtual bool operator>(const Subject_T &propValue) { return (*this->subject > propValue); }
-//
-//        friend bool operator>(const Subject_T &propValue, const SubjectEncapsulation &observableProperty) {
-//            return (*observableProperty.subject > propValue);
-//        }
-//
-//        friend bool operator>(const SubjectEncapsulation &observableProperty, const Subject_T &propValue) {
-//            return (*observableProperty.subject > propValue);
-//        }
-//
-//        //>=
-//        virtual bool operator>=(const SubjectEncapsulation &observableProperty) {
-//            return (*this->subject >= *observableProperty.subject);
-//        }
-//
-//        virtual bool operator>=(const Subject_T &propValue) { return (*this->subject >= propValue); }
-//
-//        friend bool operator>=(const Subject_T &propValue, const SubjectEncapsulation &observableProperty) {
-//            return (*observableProperty.subject >= propValue);
-//        }
-//
-//        friend bool operator>=(const SubjectEncapsulation &observableProperty, const Subject_T &propValue) {
-//            return (*observableProperty.subject >= propValue);
 //        }
 //
 //        //ostream << and istream >>

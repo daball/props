@@ -25,7 +25,7 @@ namespace daball::props::behaviors::base {
         AssignmentProxy(Subject_T &reference):
                 SubjectReferrer<Subject_T>(reference)
         {}
-        AssignmentProxy(const ArrowProxy<Subject_T> &source):
+        AssignmentProxy(const AssignmentProxy<Subject_T> &source):
                 SubjectReferrer<Subject_T>(source)
         {}
         virtual AssignmentProxy<Subject_T> &operator=(::std::nullptr_t) { this->unsetSubjectRef(); return *this; }

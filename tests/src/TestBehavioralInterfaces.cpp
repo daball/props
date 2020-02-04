@@ -20,9 +20,11 @@
 #include "mocks/MultiplicationProxyTestClass.hpp"
 #include "mocks/NegationProxyTestClass.hpp"
 #include "mocks/PointerProxyTestClass.hpp"
+//#include "mocks/PromotionProxyTestClass.hpp"
 #include "mocks/SettableTestClass.hpp"
 #include "mocks/SubtractionProxyTestClass.hpp"
 #include "mocks/CombinatorialProxyTestClass.hpp"
+#include <daball/props/base/Property.hpp>
 #define BOOST_TEST_MODULE TestBehavioralInterfaces
 //VERY IMPORTANT - include this last
 #include <boost/test/unit_test.hpp>
@@ -44,9 +46,13 @@ using daball::props::tests::ModuloProxyTestClass;
 using daball::props::tests::MultiplicationProxyTestClass;
 using daball::props::tests::NegationProxyTestClass;
 using daball::props::tests::PointerProxyTestClass;
+//using daball::props::tests::PromotionProxyTestClass;
 using daball::props::tests::SettableTestClass;
 using daball::props::tests::SubtractionProxyTestClass;
 using daball::props::tests::CombinatorialProxyTestClass;
+using daball::props::base::CoreProperty;
+using daball::props::base::Property;
+using daball::props::base::NumericProperty;
 
 BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
 
@@ -455,6 +461,22 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         delete s;
     }
 
+// Code coverage shows promotion +unary operator overload isn't
+// being used.
+//    BOOST_AUTO_TEST_CASE( test_PromotionProxy )
+//    {
+//        double dA = 17.5;
+//        int iB = 3;
+//        double expectedRangeL = 20.4;
+//        double expectedValue = 20.5;
+//        double expectedRangeR = 20.6;
+//        double promotedTest1 = dA + iB; // this should be automatically promoted by the compiler
+//        double promotedTest2 = iB + dA; // this should be automatically promoted by the compiler
+//        PromotionProxyTestClass<int> anIntObjectB(iB);
+//        double promotedTest3 = dA + anIntObjectB;
+//        double promotedTest4 = anIntObjectB + dA;
+//    }
+
     BOOST_AUTO_TEST_CASE( test_Settable )
     {
         std::string sEmpty = ""; //starts out empty
@@ -594,6 +616,34 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(true, s2 != newString2); //absence of magic
         BOOST_CHECK_EQUAL(true, s1 == newString3); //magic
         BOOST_CHECK_EQUAL(true, s2 == newString4); //magic
+    }
+
+    BOOST_AUTO_TEST_CASE( test_NumericPropertyOfInt )
+    {
+        NumericProperty<int> i(10);
+        BOOST_CHECK_EQUAL(i.get(), 10);
+        BOOST_CHECK_EQUAL(*i, 10);
+        BOOST_CHECK_EQUAL(i, 10);
+        BOOST_CHECK_NE(i, 11);
+        BOOST_CHECK_GT(i, 9);
+        BOOST_CHECK_GE(i, 9);
+        BOOST_CHECK_GE(i, 10);
+        BOOST_CHECK_LT(i, 11);
+        BOOST_CHECK_LE(i, 11);
+        BOOST_CHECK_LE(i, 10);
+        int ij = 20;
+        i.set(ij);
+        BOOST_CHECK_EQUAL(i.get(), 20);
+        BOOST_CHECK_EQUAL(*i, 20);
+        BOOST_CHECK_EQUAL(i, 20);
+        i.set(30);
+        BOOST_CHECK_EQUAL(i.get(), 30);
+        BOOST_CHECK_EQUAL(*i, 30);
+        BOOST_CHECK_EQUAL(i, 30);
+        i = 40;
+        BOOST_CHECK_EQUAL(i.get(), 40);
+        BOOST_CHECK_EQUAL(*i, 40);
+        BOOST_CHECK_EQUAL(i, 40);
     }
 
 BOOST_AUTO_TEST_SUITE_END()
