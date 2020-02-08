@@ -636,6 +636,11 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(i.get(), 20);
         BOOST_CHECK_EQUAL(*i, 20);
         BOOST_CHECK_EQUAL(i, 20);
+        //sneak in an ij update without an i update
+        ij = 22;
+        BOOST_CHECK_EQUAL(i.get(), 20);
+        BOOST_CHECK_EQUAL(*i, 20);
+        BOOST_CHECK_EQUAL(i, 20);
         i.set(30);
         BOOST_CHECK_EQUAL(i.get(), 30);
         BOOST_CHECK_EQUAL(*i, 30);
@@ -644,6 +649,32 @@ BOOST_AUTO_TEST_SUITE(TestBehavioralInterfaces)
         BOOST_CHECK_EQUAL(i.get(), 40);
         BOOST_CHECK_EQUAL(*i, 40);
         BOOST_CHECK_EQUAL(i, 40);
+    }
+
+    BOOST_AUTO_TEST_CASE( test_PropertyOfString )
+    {
+        Property<std::string> s("Hello There!");
+        BOOST_CHECK_EQUAL(s.get(), "Hello There!");
+        BOOST_CHECK_EQUAL(*s, "Hello There!");
+        BOOST_CHECK_EQUAL(s, "Hello There!");
+        std::string st = "Anyone there?";
+        s.set(st);
+        BOOST_CHECK_EQUAL(s.get(), "Anyone there?");
+        BOOST_CHECK_EQUAL(*s, "Anyone there?");
+        BOOST_CHECK_EQUAL(s, "Anyone there?");
+        //sneak in an st update without an s update
+        st = "I think I've made my point.";
+        BOOST_CHECK_EQUAL(s.get(), "Anyone there?");
+        BOOST_CHECK_EQUAL(*s, "Anyone there?");
+        BOOST_CHECK_EQUAL(s, "Anyone there?");
+        s.set({"Sup, though?"});
+        BOOST_CHECK_EQUAL(s.get(), "Sup, though?");
+        BOOST_CHECK_EQUAL(*s, "Sup, though?");
+        BOOST_CHECK_EQUAL(s, "Sup, though?");
+        s = "Man, I'm out!";
+        BOOST_CHECK_EQUAL(s.get(), "Man, I'm out!");
+        BOOST_CHECK_EQUAL(*s, "Man, I'm out!");
+        BOOST_CHECK_EQUAL(s, "Man, I'm out!");
     }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -10,10 +10,13 @@
 #include "../behaviors/base/GreaterThanProxy.hpp"
 #include "../behaviors/base/GreaterThanOrEqualityProxy.hpp"
 #include "../behaviors/base/InequalityProxy.hpp"
+#include "../behaviors/base/IStreamRightShiftAdapter.hpp"
 #include "../behaviors/base/LesserThanProxy.hpp"
 #include "../behaviors/base/LesserThanOrEqualityProxy.hpp"
 #include "../behaviors/base/ModuloProxy.hpp"
 #include "../behaviors/base/MultiplicationProxy.hpp"
+#include "../behaviors/base/NegationProxy.hpp"
+#include "../behaviors/base/OStreamLeftShiftAdapter.hpp"
 #include "../behaviors/base/PointerProxy.hpp"
 #include "../behaviors/base/Settable.hpp"
 #include "../behaviors/base/SubjectOwner.hpp"
@@ -50,7 +53,8 @@ namespace daball::props::base {
 
     template<typename Prop_T, template <typename> typename ...AdditionalBehavior_Ts>
     using Property = CoreProperty<Prop_T, SubjectOwner, Gettable, Settable, ArrowProxy, AssignmentProxy, CoercionProxy,
-                                  EqualityProxy, InequalityProxy, PointerProxy, AdditionalBehavior_Ts...>;
+                                  EqualityProxy, InequalityProxy, IStreamRightShiftAdapter, OStreamLeftShiftAdapter,
+                                  PointerProxy, AdditionalBehavior_Ts...>;
 
     template<typename Prop_T, template <typename> typename ...AdditionalBehavior_Ts>
     using NumericProperty = Property<Prop_T, AdditionProxy, DivisionProxy, GreaterThanOrEqualityProxy, GreaterThanProxy,
